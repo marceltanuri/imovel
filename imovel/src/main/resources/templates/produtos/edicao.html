@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Imóveis | Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div th:insert="~{menu :: menu}"></div>
+	<div class="container">
+		<h4 th:text="${'#'+produto.id+' '+produto.nome}"></h4>
+		<form method="POST" enctype="multipart/form-data"
+			th:object="${produto}"
+			th:action="@{/produto/editar(id=${produto.id})}"
+			style="margin: 20px 0">
+			<div th:insert="~{produtos/campos :: campos}"></div>
+			<div class="col-xs-12 text-right">
+				<button class="btn btn-primary" type="submit">Salvar</button>
+			</div>
+		</form>
+	</div>
+	<div th:insert="~{scripts :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="campos">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Nome"
+					th:field="*{nome}" required="required" />
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Cidade"
+					th:field="*{localizacao.cidade}" required="required"
+					th:value="${produto.localizacao.cidade}" />
+			</div>
+		</div>
+	</div>
+</body>
+</html>
