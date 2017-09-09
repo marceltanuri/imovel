@@ -32,7 +32,7 @@ public class Produto {
 	private Long metragem;
 
 	@ManyToMany
-	private List<Componente> componentes;
+	private List<ComponenteDoProduto> componentes;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Foto> fotos = new ArrayList<Foto>();
@@ -79,11 +79,11 @@ public class Produto {
 		this.metragem = metragem;
 	}
 
-	public List<Componente> getComponentes() {
+	public List<ComponenteDoProduto> getComponentes() {
 		return componentes;
 	}
 
-	public void setComponentes(List<Componente> componentes) {
+	public void setComponentes(List<ComponenteDoProduto> componentes) {
 		this.componentes = componentes;
 	}
 

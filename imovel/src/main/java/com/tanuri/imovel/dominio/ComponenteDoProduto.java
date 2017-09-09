@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Componente {
+public class ComponenteDoProduto {
 
 	@Id
 	@GeneratedValue
@@ -15,7 +15,7 @@ public class Componente {
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_id")
-	private TipoDoComponente tipo;
+	private TipoDeComponente tipo;
 
 	private Long quantidade;
 
@@ -27,11 +27,11 @@ public class Componente {
 		this.id = id;
 	}
 
-	public TipoDoComponente getTipo() {
+	public TipoDeComponente getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoDoComponente tipo) {
+	public void setTipo(TipoDeComponente tipo) {
 		this.tipo = tipo;
 	}
 

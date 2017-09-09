@@ -15,6 +15,27 @@
 					th:value="${produto.localizacao.cidade}" />
 			</div>
 		</div>
+		<hr />
+		<div class="col-xs-12">
+			<h5>Componentes</h5>
+			<table class="table table-compact table-striped table-hover">
+				<tbody>
+					<tr th:each="componente : ${produto.componentes}">
+						<td th:text="${componente.tipo.nome}"></td>
+						<td><input type="text"
+							th:attr="name=${'componentes['+componenteStat.index+'].quantidade'}"
+							placeholder="quantidade" class="form-control"
+							style="max-width: 200px;" /></td>
+					</tr>
+					<tr th:each="componente : ${componentes}">
+						<td th:text="${componente.nome}"></td>
+						<td><input type="text" placeholder="quantidade"
+							th:attr="name=${'componentes['+(produto.componentes.size() + componenteStat.index)*1+'].quantidade'}"
+							class="form-control" style="max-width: 200px;" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </body>
 </html>
