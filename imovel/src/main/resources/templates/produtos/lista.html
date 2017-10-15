@@ -9,6 +9,7 @@
 <body>
 	<div th:insert="~{menu :: menu ('produtos')}"></div>
 	<div class="container">
+	<div th:insert="~{mensagens :: mensagens}"></div>
 		<div class="col-xs-12 text-right">
 			<a class="btn btn-primary" href="#" data-toggle="modal"
 				data-target="#modalNovo">Novo produto</a>
@@ -34,11 +35,14 @@
 							<td th:text="${produto.id}"></td>
 							<td th:text="${produto.nome}"></td>
 							<td th:text="${produto.localizacao.cidade}"></td>
-							<td><img style="height: 50px;" src=""
-								th:attr="src=${'data:image/png;base64, ' + produto.fotos[0].conteudo}" /></td>
+							<td><img th:if="${!produto.fotos.isEmpty()}"
+								style="height: 50px;" src=""
+								th:attr="src=${'data:image/png;base64, ' + produto.fotos[produto.fotoPrincipal].conteudo}" /></td>
 							<td><a class="text-warning"
 								th:href="@{/produto/editar(id=${produto.id})}"
-								style="margin-right: 25px;">editar</a><a class="text-danger"
+								style="margin-right: 25px;">editar</a><a class="text-info"
+								th:href="@{/produto/fotos(id=${produto.id})}"
+								style="margin-right: 25px;">fotos</a><a class="text-danger"
 								href="#" data-toggle="modal" data-target="#modalExcluir"
 								th:attr="data-id=${produto.id}, data-nome=${produto.nome}">excluir</a></td>
 						</tr>
@@ -64,7 +68,7 @@
 							<div class="col-xs-12">
 								<div class="form-group">
 									<input type="file" class="form-control" placeholder="Foto"
-										th:field="*{fotos[0].file}" required="required" />
+										th:field="*{uploads}" multiple="multiple" />
 								</div>
 							</div>
 						</div>

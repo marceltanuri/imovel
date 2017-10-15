@@ -4,34 +4,91 @@
 	<div th:fragment="campos">
 		<div class="col-xs-12">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Nome"
-					th:field="*{nome}" required="required" />
+				<label>Nome*</label> <input type="text" class="form-control"
+					placeholder="Nome" th:field="*{nome}" required="required" />
 			</div>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-xs-12 col-sm-12 col-md-6">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Cidade"
-					th:field="*{localizacao.cidade}" required="required"
-					th:value="${produto.localizacao.cidade}" />
+				<label>Tipo*</label> <select class="form-control" th:field="*{tipo}" required="required">
+					<option value="">Nenhum</option>
+					<option th:each="tipo : ${produto.tipos}" th:value="${tipo}"
+						th:text="${tipo}"></option>
+				</select>
 			</div>
 		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6">
+			<div class="form-group">
+				<label>Estágio da obra</label> <select class="form-control"
+					th:field="*{estagio}">
+					<option value="">Nenhum</option>
+					<option th:each="estagio : ${produto.estagios}"
+						th:value="${estagio}" th:text="${estagio.descricao}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-xs-12 col-xs-12 col-md-12">
+			<div class="form-group">
+				<label>Cidade*</label> <input type="text" class="form-control"
+					placeholder="Cidade" th:field="*{localizacao.cidade}"
+					required="required" th:value="${produto.localizacao.cidade}" />
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-8">
+			<div class="form-group">
+
+				<label>Bairro</label> <input type="text" class="form-control"
+					placeholder="Bairro" th:field="*{localizacao.bairro}"
+					th:value="${produto.localizacao.bairro}" />
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-4">
+			<div class="form-group">
+				<label>Zona</label> <input type="text" class="form-control"
+					placeholder="Zona" th:field="*{localizacao.zona}"
+					th:value="${produto.localizacao.zona}" />
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label>Metragem (m²)*</label> <input type="number"
+					class="form-control" placeholder="Metragem (m²)" min="0"
+					max="100000" th:field="*{metragem}" required="required"
+					th:value="${produto.metragem}" />
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label>Valor (R$)</label> <input type="number" class="form-control"
+					placeholder="Valor (R$)" th:field="*{valor}"
+					th:value="${produto.valor}" />
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-12">
+			<div class="form-group">
+				<label>Visão geral</label>
+				<textarea class="form-control" placeholder="Visão geral"
+					th:field="*{visaoGeral}" th:text="${produto.visaoGeral}"></textarea>
+			</div>
+		</div>
+		<div class="col-xs-12"></div>
 		<hr />
 		<div class="col-xs-12">
-			<h5>Componentes</h5>
+			<label>Componentes</label>
 			<table class="table table-compact table-striped table-hover">
 				<tbody>
-					<tr th:each="componente : ${produto.componentes}">
+					<tr th:each="componente,componenteStat : ${componentes}">
 						<td th:text="${componente.tipo.nome}"></td>
-						<td><input type="text"
+						<td><input type="hidden"
+							th:attr="name=${'componentes['+componenteStat.index+'].tipo.id'}"
+							th:value="${componente.tipo.id}" /><input type="number" min="0"
+							max="50" placeholder="quantidade"
+							th:value="${componente.quantidade}"
 							th:attr="name=${'componentes['+componenteStat.index+'].quantidade'}"
-							placeholder="quantidade" class="form-control"
-							style="max-width: 200px;" /></td>
-					</tr>
-					<tr th:each="componente : ${componentes}">
-						<td th:text="${componente.nome}"></td>
-						<td><input type="text" placeholder="quantidade"
-							th:attr="name=${'componentes['+(produto.componentes.size() + componenteStat.index)*1+'].quantidade'}"
 							class="form-control" style="max-width: 200px;" /></td>
+					</tr>
+					<tr th:if="${componentes.isEmpty()}">
+						<td colspan="2">Não existem componentes para cadastrar</td>
 					</tr>
 				</tbody>
 			</table>

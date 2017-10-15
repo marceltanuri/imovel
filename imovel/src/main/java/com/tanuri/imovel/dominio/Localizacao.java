@@ -7,6 +7,8 @@ public class Localizacao {
 
 	private String bairro;
 
+	private String zona;
+
 	private String cidade;
 
 	public String getBairro() {
@@ -23,6 +25,14 @@ public class Localizacao {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getZona() {
+		return zona;
+	}
+
+	public void setZona(String zona) {
+		this.zona = zona;
 	}
 
 }

@@ -22,9 +22,16 @@ public class Foto {
 
 	@Lob
 	private String conteudo;
-
+	
 	@Transient
 	MultipartFile file;
+
+	public Foto() {
+	}
+
+	public Foto(MultipartFile file) throws IOException {
+		this.setFile(file);
+	}
 
 	public MultipartFile getFile() {
 		return file;

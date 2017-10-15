@@ -11,6 +11,9 @@
 						$(this).find("button[type='submit']").attr("disabled",
 								"disabled");
 					});
+			$("#mensagemSucesso").fadeTo(2000, 500).slideUp(500, function() {
+				$("#mensagemSucesso").slideUp(500);
+			});
 		</script>
 	</div>
 </body>
