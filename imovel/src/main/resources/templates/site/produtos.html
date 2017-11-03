@@ -8,6 +8,7 @@
 </head>
 <body>
 	<div class="container">
+		<div th:insert="~{mensagens :: mensagens}"></div>
 		<div class="panel panel-default" style="margin: 10px">
 			<div class="panel-heading">
 				<h1 class="panel-title">Produtos</h1>
@@ -20,6 +21,7 @@
 							<th>Nome</th>
 							<th>Localização</th>
 							<th>Foto</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,11 +32,65 @@
 							<td><img th:if="${!produto.fotos.isEmpty()}"
 								style="height: 50px;" src=""
 								th:attr="src=${'data:image/png;base64, ' + produto.fotos[produto.fotoPrincipal].conteudo}" /></td>
+							<td><a class="text-danger" href="#" data-toggle="modal"
+								data-target="#modalNovaSolicitacaoContato"
+								th:attr="data-id=${produto.id}, data-nome=${produto.nome}">solicitar
+									contato</a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	<div id="modalNovaSolicitacaoContato" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Solicitação de contato</h4>
+				</div>
+				<form method="POST" id="form-solicitacao-contato"
+					th:object="${solicitacaoDeContato}"
+					th:action="@{/solicitacaoDeContato}" style="margin: 20px 0">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xs-12">
+								<span style="font-weight: bold;" class="text-primary"
+									id="nome-produto"></span><input type="hidden" name="produto.id" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div
+								th:insert="
+							~{solicitacoesDeContato/campos :: campos}"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							style="margin-right: 5px;">Cancelar</button>
+						<button type="submit" class="btn btn-success">Salvar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:insert="~{scripts :: scripts}"></div>
+	<script>
+		$('#modalNovaSolicitacaoContato')
+				.on(
+						'show.bs.modal',
+						function(e) {
+							//get data-id attribute of the clicked element
+							var id = $(e.relatedTarget).data('id');
+							var nome = $(e.relatedTarget).data('nome');
+							//populate the textbox
+							$(e.currentTarget).find('input[name="produto.id"]')
+									.val(id);
+							$(e.currentTarget).find('#nome-produto').html(
+									"#" + id + " " + nome);
+						});
+	</script>
 </body>
 </html>

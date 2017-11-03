@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="campos">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label>Nome*</label> <input type="text" class="form-control"
+					placeholder="Nome" th:field="*{nome}" required="required" />
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label>E-mail*</label> <input type="email" class="form-control"
+					placeholder="E-mail" th:field="*{email}" required="required" />
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label>Telefone</label> <input type="tel" class="form-control"
+					placeholder="Telefone" th:field="*{telefone.numero}" />&nbsp;&nbsp;<input
+					type="checkbox" th:field="*{telefone.whatsapp}" /> whatsapp
+			</div>
+		</div>
+	</div>
+</body>
+</html>

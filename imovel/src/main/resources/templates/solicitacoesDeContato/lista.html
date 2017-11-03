@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Imóveis | Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div th:insert="~{menu :: menu ('solicitacoesDeContato')}"></div>
+	<div class="container">
+		<div class="row"></div>
+		<div class="panel panel-default" style="margin: 10px">
+			<div class="panel-heading">
+				<h1 class="panel-title">Solicitações de Contato</h1>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Data</th>
+							<th>Nome</th>
+							<th>E-mail</th>
+							<th>Telefone</th>
+							<th>Produto</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="solicitacao : ${solicitacoesDeContato}">
+							<td
+								th:text="${#calendars.format(solicitacao.data.time,'dd/MM/yyyy HH:mm')}"></td>
+							<td th:text="${solicitacao.nome}"></td>
+							<td th:text="${solicitacao.email}"></td>
+							<td
+								th:text="|${solicitacao.telefone.numero} ${solicitacao.telefone.whatsapp?'(whats)':''}|"></td>
+							<td th:text="${solicitacao.produto.nome}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

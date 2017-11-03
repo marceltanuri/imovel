@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tanuri.imovel.dominio.ComponenteDoProduto;
 import com.tanuri.imovel.dominio.Produto;
 import com.tanuri.imovel.dominio.TipoDeComponente;
+import com.tanuri.imovel.repositorio.SolicitacoesDeContato;
 import com.tanuri.imovel.service.ProdutoService;
 import com.tanuri.imovel.service.TipoDeComponenteService;
 
@@ -27,6 +28,9 @@ public class ProdutoController {
 
 	@Autowired
 	TipoDeComponenteService tipoDeComponenteService;
+
+	@Autowired
+	SolicitacoesDeContato solicitacoesDeContato;
 
 	@GetMapping("/produtos")
 	public String listar(Model model) {
@@ -90,6 +94,12 @@ public class ProdutoController {
 		produtoService.excluir(id);
 		redirect.addFlashAttribute("mensagemSucesso", "O produto foi excluído.");
 		return "redirect:/admin/produtos";
+	}
+
+	@GetMapping("/solicitacoesDeContato")
+	public String listarSolicitacoesDeContato(Model model) {
+		model.addAttribute("solicitacoesDeContato", solicitacoesDeContato.findAll());
+		return "solicitacoesDeContato/lista";
 	}
 
 }
