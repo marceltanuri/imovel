@@ -56,7 +56,7 @@ public class ProdutoController {
 			RedirectAttributes redirect) {
 		produtoService.alterarFotos(id, fotosExcluidas, fotoPrincipal, produto.getFotos());
 		redirect.addFlashAttribute("mensagemSucesso", "As fotos do produto foram atualizadas.");
-		return "redirect:/produto/fotos?id=" + id;
+		return "redirect:/admin/produto/fotos?id=" + id;
 	}
 
 	private Set<ComponenteDoProduto> montaListaDeComponentes(List<TipoDeComponente> tiposDeComponente,
@@ -75,21 +75,21 @@ public class ProdutoController {
 	public String alterar(Long id, Produto produto, RedirectAttributes redirect) {
 		produtoService.alterar(id, produto);
 		redirect.addFlashAttribute("mensagemSucesso", "Os dados do produto foram atualizados.");
-		return "redirect:/produtos";
+		return "redirect:/admin/produtos";
 	}
 
 	@PostMapping("/produtos")
 	public String salvar(Produto produto, RedirectAttributes redirect) {
 		produtoService.salvar(produto);
 		redirect.addFlashAttribute("mensagemSucesso", "O produto foi inserido.");
-		return "redirect:/produtos";
+		return "redirect:/admin/produtos";
 	}
 
 	@PostMapping("/produto/excluir")
 	public String excluir(Long id, RedirectAttributes redirect) {
 		produtoService.excluir(id);
 		redirect.addFlashAttribute("mensagemSucesso", "O produto foi excluído.");
-		return "redirect:/produtos";
+		return "redirect:/admin/produtos";
 	}
 
 }

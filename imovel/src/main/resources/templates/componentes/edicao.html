@@ -12,7 +12,7 @@
 		<h4 th:text="${'#'+componente.id+' '+componente.nome}"></h4>
 		<form method="POST" enctype="multipart/form-data"
 			th:object="${componente}"
-			th:action="@{/componente/editar(id=${componente.id})}"
+			th:action="@{/admin/componente/editar(id=${componente.id})}"
 			style="margin: 20px 0">
 			<div th:insert="~{componentes/campos :: campos}"></div>
 			<div class="col-xs-12 text-right">

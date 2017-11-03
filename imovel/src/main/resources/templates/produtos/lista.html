@@ -39,9 +39,9 @@
 								style="height: 50px;" src=""
 								th:attr="src=${'data:image/png;base64, ' + produto.fotos[produto.fotoPrincipal].conteudo}" /></td>
 							<td><a class="text-warning"
-								th:href="@{/produto/editar(id=${produto.id})}"
+								th:href="@{/admin/produto/editar(id=${produto.id})}"
 								style="margin-right: 25px;">editar</a><a class="text-info"
-								th:href="@{/produto/fotos(id=${produto.id})}"
+								th:href="@{/admin/produto/fotos(id=${produto.id})}"
 								style="margin-right: 25px;">fotos</a><a class="text-danger"
 								href="#" data-toggle="modal" data-target="#modalExcluir"
 								th:attr="data-id=${produto.id}, data-nome=${produto.nome}">excluir</a></td>
@@ -61,7 +61,7 @@
 				</div>
 				<form method="POST" enctype="multipart/form-data"
 					id="form-produto-salvar" th:object="${produto}"
-					th:action="@{/produtos}" style="margin: 20px 0">
+					th:action="@{/admin/produtos}" style="margin: 20px 0">
 					<div class="modal-body">
 						<div class="row">
 							<div th:insert="~{produtos/campos :: campos}"></div>
@@ -90,7 +90,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Excluir produto</h4>
 				</div>
-				<form method="POST" th:action="@{/produto/excluir}">
+				<form method="POST" th:action="@{/admin/produto/excluir}">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-xs-12">

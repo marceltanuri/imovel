@@ -33,19 +33,19 @@ public class TipoDeComponenteController {
 	@PostMapping("/componente/editar")
 	public String alterar(Long id, TipoDeComponente tipoDeComponente) {
 		tipoDeComponenteService.alterar(id, tipoDeComponente);
-		return "redirect:/componentes";
+		return "redirect:/admin/componentes";
 	}
 
 	@PostMapping("/componentes")
 	public String salvar(TipoDeComponente tipoDeComponente) {
 		tipoDeComponenteService.salvar(tipoDeComponente);
-		return "redirect:/componentes";
+		return "redirect:/admin/componentes";
 	}
 
 	@PostMapping("/componente/excluir")
 	public String excluir(Long id) {
 		tipoDeComponenteService.excluir(id);
-		return "redirect:/componentes";
+		return "redirect:/admin/componentes";
 	}
 
 }
