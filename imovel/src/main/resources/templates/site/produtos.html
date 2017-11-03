@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Imóveis | Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+		<div class="panel panel-default" style="margin: 10px">
+			<div class="panel-heading">
+				<h1 class="panel-title">Produtos</h1>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nome</th>
+							<th>Localização</th>
+							<th>Foto</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="produto : ${produtos}">
+							<td th:text="${produto.id}"></td>
+							<td th:text="${produto.nome}"></td>
+							<td th:text="${produto.localizacao.cidade}"></td>
+							<td><img th:if="${!produto.fotos.isEmpty()}"
+								style="height: 50px;" src=""
+								th:attr="src=${'data:image/png;base64, ' + produto.fotos[produto.fotoPrincipal].conteudo}" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

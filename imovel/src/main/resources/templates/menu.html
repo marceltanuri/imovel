@@ -10,12 +10,19 @@
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li th:class="${page=='produtos'?'active':''}"><a
-							th:href="@{/produtos}">Produtos</a></li>
+							th:href="@{/admin/produtos}">Produtos</a></li>
 						<li th:class="${page=='componentes'?'active':''}"><a
-							th:href="@{/componentes}">Componentes</a></li>
-	<!-- 					<li th:class="${page=='categorias'?'active':''}"><a
+							th:href="@{/admin/componentes}">Componentes</a></li>
+						<!-- 					<li th:class="${page=='categorias'?'active':''}"><a
 							th:href="@{#}">Categorias</a></li>
- -->					</ul>
+ -->
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" onclick="$('#form-logout').submit();"><span
+								class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+					</ul>
+					<form th:action="@{/logout}" method="post" id="form-logout">
+					</form>
 				</div>
 			</div>
 		</nav>

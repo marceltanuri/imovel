@@ -9,7 +9,7 @@
 <body>
 	<div th:insert="~{menu :: menu ('produtos')}"></div>
 	<div class="container">
-	<div th:insert="~{mensagens :: mensagens}"></div>
+		<div th:insert="~{mensagens :: mensagens}"></div>
 		<div class="col-xs-12 text-right">
 			<a class="btn btn-primary" href="#" data-toggle="modal"
 				data-target="#modalNovo">Novo produto</a>
@@ -67,8 +67,8 @@
 							<div th:insert="~{produtos/campos :: campos}"></div>
 							<div class="col-xs-12">
 								<div class="form-group">
-									<input type="file" class="form-control" placeholder="Foto"
-										th:field="*{uploads}" multiple="multiple" />
+									<label>Fotos</label> <input type="file" class="form-control"
+										placeholder="Foto" th:field="*{uploads}" multiple="multiple" />
 								</div>
 							</div>
 						</div>
