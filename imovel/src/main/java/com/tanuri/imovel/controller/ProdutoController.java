@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tanuri.imovel.dominio.ComponenteDoProduto;
 import com.tanuri.imovel.dominio.Produto;
+import com.tanuri.imovel.dominio.SolicitacaoDeContato;
 import com.tanuri.imovel.dominio.TipoDeComponente;
 import com.tanuri.imovel.repositorio.SolicitacoesDeContato;
 import com.tanuri.imovel.service.ProdutoService;
@@ -98,8 +100,21 @@ public class ProdutoController {
 
 	@GetMapping("/solicitacoesDeContato")
 	public String listarSolicitacoesDeContato(Model model) {
-		model.addAttribute("solicitacoesDeContato", solicitacoesDeContato.findAll());
+		model.addAttribute("solicitacoesDeContato",
+				solicitacoesDeContato.findAll(new Sort(Sort.Direction.DESC, "data")));
 		return "solicitacoesDeContato/lista";
 	}
 
+	@PostMapping("/solicitacoesDeContato/lida")
+	public String marcarDesmarcarComoLidaSolicitacaoDeContato(Long[] ids, Model model) {
+		if (ids != null) {
+			for (Long id : ids) {
+				if (id == null)
+					continue;
+				SolicitacaoDeContato solicitacaoDeContato = solicitacoesDeContato.findOne(id);
+				solicitacaoDeContato.marcaDesmarcaComoLida(solicitacoesDeContato);
+			}
+		}
+		return "redirect:/admin/solicitacoesDeContato";
+	}
 }

@@ -9,36 +9,64 @@
 <body>
 	<div th:insert="~{menu :: menu ('solicitacoesDeContato')}"></div>
 	<div class="container">
-		<div class="row"></div>
-		<div class="panel panel-default" style="margin: 10px">
-			<div class="panel-heading">
-				<h1 class="panel-title">Solicitações de Contato</h1>
+		<form method="POST" id="form-marca-desmarca-lidas"
+			th:action="@{/admin/solicitacoesDeContato/lida}"
+			style="margin: 20px 0">
+			<div class="row">
+				<div class="col-xs-12 text-right">
+					<button class="btn btn-primary" type="submit">Marca /
+						Desmarca como lida(s)</button>
+				</div>
 			</div>
-			<div class="panel-body">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Data</th>
-							<th>Nome</th>
-							<th>E-mail</th>
-							<th>Telefone</th>
-							<th>Produto</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="solicitacao : ${solicitacoesDeContato}">
-							<td
-								th:text="${#calendars.format(solicitacao.data.time,'dd/MM/yyyy HH:mm')}"></td>
-							<td th:text="${solicitacao.nome}"></td>
-							<td th:text="${solicitacao.email}"></td>
-							<td
-								th:text="|${solicitacao.telefone.numero} ${solicitacao.telefone.whatsapp?'(whats)':''}|"></td>
-							<td th:text="${solicitacao.produto.nome}"></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="panel panel-default" style="margin: 10px">
+				<div class="panel-heading">
+					<h1 class="panel-title">Solicitações de Contato</h1>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Data</th>
+								<th>Nome</th>
+								<th>E-mail</th>
+								<th>Telefone</th>
+								<th>Produto</th>
+								<th><input type="checkbox" id="marca-todos" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								th:each="solicitacao,solicitacaoStat : ${solicitacoesDeContato}"
+								th:class="${!solicitacao.lida}? 'tr-solicitacao-naolida'">
+								<td
+									th:text="${#calendars.format(solicitacao.data.time,'dd/MM/yyyy HH:mm')}"></td>
+								<td th:text="${solicitacao.nome}"></td>
+								<td th:text="${solicitacao.email}"></td>
+								<td
+									th:text="|${solicitacao.telefone.numero} ${solicitacao.telefone.whatsapp?'(whats)':''}|"></td>
+								<td th:text="${solicitacao.produto.nome}"></td>
+								<td><input type="checkbox" name="ids"
+									th:value="${solicitacao.id}" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
+	<div th:insert="~{scripts :: scripts}"></div>
+	<script>
+		$("#marca-todos").click(function() {
+			var checked = $(this).prop("checked");
+			$("input[name='ids']").each(function() {
+				$(this).attr("checked", checked);
+			});
+		});
+	</script>
 </body>
+<style>
+.tr-solicitacao-naolida {
+	font-weight: bold;
+}
+</style>
 </html>

@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.springframework.transaction.annotation.Transactional;
+
+import com.tanuri.imovel.repositorio.SolicitacoesDeContato;
+
 @Entity
 public class SolicitacaoDeContato {
 
@@ -21,6 +25,8 @@ public class SolicitacaoDeContato {
 	private String nome;
 
 	private Telefone telefone;
+
+	private boolean lida;
 
 	@OneToOne
 	private Produto produto;
@@ -63,6 +69,26 @@ public class SolicitacaoDeContato {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public boolean isLida() {
+		return lida;
+	}
+
+	public void setLida(boolean jaFoiLida) {
+		this.lida = jaFoiLida;
+	}
+
+	@Transactional
+	public void marcaDesmarcaComoLida(SolicitacoesDeContato solicitacoesDeContato) {
+		this.lida = !this.lida;
+		solicitacoesDeContato.save(this);
+	}
+	
+	@Transactional
+	public void desmarcaComoLida(SolicitacoesDeContato solicitacoesDeContato) {
+		this.lida = false;
+		solicitacoesDeContato.save(this);
 	}
 
 }
