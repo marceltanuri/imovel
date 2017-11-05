@@ -17,7 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and().formLogin().loginPage("/login")
-				.permitAll().defaultSuccessUrl("/admin/produtos").and().logout().permitAll();
+		http.csrf().ignoringAntMatchers("/mensagensChat", "/a/mensagensChat/**").and().authorizeRequests()
+				.antMatchers("/admin/**").hasRole("ADMIN").and().formLogin().loginPage("/login").permitAll()
+				.defaultSuccessUrl("/admin/produtos").and().logout().permitAll();
 	}
 }

@@ -18,7 +18,7 @@ public class SolicitacaoDeContato {
 	@GeneratedValue
 	private Long id;
 
-	private Calendar data = Calendar.getInstance();
+	private Calendar data;
 
 	private String email;
 
@@ -30,6 +30,10 @@ public class SolicitacaoDeContato {
 
 	@OneToOne
 	private Produto produto;
+
+	public SolicitacaoDeContato() {
+		this.data = Calendar.getInstance();
+	}
 
 	public Long getId() {
 		return id;
