@@ -29,6 +29,7 @@
 								<th>Data</th>
 								<th>Nome</th>
 								<th>E-mail</th>
+								<th></th>
 								<th>Telefone</th>
 								<th>Produto</th>
 								<th><input type="checkbox" id="marca-todos" /></th>
@@ -42,6 +43,14 @@
 									th:text="${#calendars.format(solicitacao.data.time,'dd/MM/yyyy HH:mm')}"></td>
 								<td th:text="${solicitacao.nome}"></td>
 								<td th:text="${solicitacao.email}"></td>
+								<td><span><a class="marcarDesmarcarComoLida"
+										style="cursor: pointer;"
+										th:text="${solicitacao.lida?'marcar como não lida':'marcar como lida'}"
+										th:attr="data-id=${solicitacao.id}"></a></span> <span
+									th:if="${solicitacao.mensagem!=null&&!solicitacao.mensagem.isEmpty()}"><br />
+										<a class="verMensagem" style="cursor: pointer;"
+										th:attr="data-texto=${solicitacao.mensagem},data-id=${solicitacao.id},data-lida=${solicitacao.lida}">ver
+											mensagem</a></span></td>
 								<td
 									th:text="|${solicitacao.telefone.numero} ${solicitacao.telefone.whatsapp?'(whats)':''}|"></td>
 								<td th:text="${solicitacao.produto.nome}"></td>
@@ -57,11 +66,36 @@
 	<div th:insert="~{scripts :: scripts}"></div>
 	<script>
 		$("#marca-todos").click(function() {
-			var checked = $(this).prop("checked");
+			var checkedStatus = $(this).prop("checked");
 			$("input[name='ids']").each(function() {
-				$(this).attr("checked", checked);
+				$(this).prop('checked', checkedStatus);
 			});
 		});
+		$(".marcarDesmarcarComoLida").click(function() {
+			if (!$(this).data("lida"))
+				marcarDesmarcarMensagemComoLida($(this).data("id"));
+		});
+		$(".verMensagem").click(function() {
+			alert($(this).data("texto"));
+			if (!$(this).data("lida"))
+				marcarDesmarcarMensagemComoLida($(this).data("id"));
+		});
+		function marcarDesmarcarMensagemComoLida(id) {
+			desmarcarTodosCheckBoxes();
+			marcarCheckBox(id);
+			submitForm();
+		}
+		function desmarcarTodosCheckBoxes() {
+			$("input[name='ids']").each(function() {
+				$(this).prop('checked', false);
+			});
+		}
+		function marcarCheckBox(id) {
+			$("input[name='ids'][value='" + id + "']").prop('checked', true);
+		}
+		function submitForm() {
+			$("#form-marca-desmarca-lidas").submit();
+		}
 	</script>
 </body>
 <style>

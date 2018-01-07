@@ -2,6 +2,7 @@ package com.tanuri.imovel.dominio;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +28,9 @@ public class SolicitacaoDeContato {
 	private Telefone telefone;
 
 	private boolean lida;
+
+	@Column(length = 4000)
+	private String mensagem;
 
 	@OneToOne
 	private Produto produto;
@@ -83,16 +87,23 @@ public class SolicitacaoDeContato {
 		this.lida = jaFoiLida;
 	}
 
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
 	@Transactional
 	public void marcaDesmarcaComoLida(SolicitacoesDeContato solicitacoesDeContato) {
 		this.lida = !this.lida;
 		solicitacoesDeContato.save(this);
 	}
-	
+
 	@Transactional
 	public void desmarcaComoLida(SolicitacoesDeContato solicitacoesDeContato) {
 		this.lida = false;
 		solicitacoesDeContato.save(this);
 	}
-
 }
