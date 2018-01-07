@@ -16,5 +16,31 @@
 			});
 		</script>
 	</div>
+
+	<div th:fragment="autoRefresh">
+		<script th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+		<script>
+			var idleTime = 0;
+			$(document).ready(function() {
+				// Increment the idle time counter every 30 second.
+				var idleInterval = setInterval(timerIncrement, 30000); // 30 seconds
+
+				// Zero the idle timer on mouse movement.
+				$(this).mousemove(function(e) {
+					idleTime = 0;
+				});
+				$(this).keypress(function(e) {
+					idleTime = 0;
+				});
+			});
+
+			function timerIncrement() {
+				idleTime = idleTime + 1;
+				if (idleTime > 2) { // 60 seconds
+					window.location.reload();
+				}
+			}
+		</script>
+	</div>
 </body>
 </html>
